@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulasi Skor Game SD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .score-board {
+      font-size: 2rem;
+      margin: 20px;
+    }
+    .buttons {
+      margin: 20px;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .win {
+      background-color: #2ecc71;
+      color: white;
+    }
+    .lose {
+      background-color: #e74c3c;
+      color: white;
+    }
+    .reset {
+      background-color: #95a5a6;
+      color: white;
+    }
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simulasi Skor Game SD</h1>
+  <div class="score-board">Skor: <span id="score">0</span></div>
+  <div class="buttons">
+    <button class="win" onclick="recordResult('Menang', 10)">MENANG (+10)</button>
+    <button class="lose" onclick="recordResult('Kalah', -5)">KALAH (-5)</button>
+    <button class="reset" onclick="resetGame()">Reset</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Ronde</th>
+        <th>Hasil</th>
+        <th>Perubahan Skor</th>
+        <th>Skor Saat Ini</th>
+      </tr>
+    </thead>
+    <tbody id="logTable"></tbody>
+  </table>
+
+  <script>
+    let score = 0;
+    let ronde = 0;
+
+    function recordResult(result, change) {
+      score += change;
+      ronde++;
+
+      const table = document.getElementById('logTable');
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${ronde}</td>
+        <td>${result}</td>
+        <td>${change > 0 ? '+' + change : change}</td>
+        <td>${score}</td>
+      `;
+
+      table.appendChild(row);
+      document.getElementById('score').textContent = score;
+    }
+
+    function resetGame() {
+      score = 0;
+      ronde = 0;
+      document.getElementById('score').textContent = score;
+      document.getElementById('logTable').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
